@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView } from 'react-native';
+
 import Event from './Event';
+
 
 let ds = new ListView.DataSource({
   rowHasChanged: (row1, row2) => row1.id !== row2.id,
@@ -18,14 +20,10 @@ class EventList extends Component {
     return <Event event={event} navigator={this.props.navigator}/>;
   }
 
-  updateDataSource(events) {
+  componentWillReceiveProps(newEvents) {
     this.setState({
-      dataSource: ds.cloneWithRows(events)
+      dataSource: ds.cloneWithRows(newEvents)
     });
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.updateDataSource(newProps.events);
   }
 
   render() {

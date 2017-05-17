@@ -1,46 +1,34 @@
-const todo = (state, action) => {
+let event = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return {
         id: action.id,
-        title: action.title,
-        createdAt: new Date(),
-        completedAt: null,
-        completed: false
+        title: action.title
       };
-    case 'TOGGLE_TODO':
-      if (state.id !== action.id) {
-        return state;
-      }
-
-      return Object.assign({}, state, {
-        completed: !state.completed,
-        completedAt: !state.completed ? new Date() : null
-      });
     case 'EDIT_TODO':
-      if (state.id !== action.todo.id) {
+      if (state.id !== action.event.id) {
         return state;
       }
 
-      return Object.assign({}, state, {title: action.todo.title});
+      return Object.assign({}, state, {title: action.event.title});
   }
 };
 
 
-const todos = (state = [], action) => {
+let events = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
         ...state,
-        todo(undefined, action)
+        event(undefined, action)
       ];
     case 'TOGGLE_TODO':
       return state.map(t =>
-        todo(t, action)
+        event(t, action)
       );
     case 'EDIT_TODO':
       return state.map(t =>
-        todo(t, action)
+        event(t, action)
       );
     case 'DELETE_TODO':
       return state.filter(t => t.id !== action.id);
@@ -49,4 +37,4 @@ const todos = (state = [], action) => {
   }
 };
 
-export default todos;
+export default events;

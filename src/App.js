@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
 import allReducers from './reducers';
 import SceneContainer from './containers/SceneContainer';
 
+
 let initialState = {
   events: [
-    {id: 1, title: 'Clean up garage', createdAt: new Date(), completed: false},
-    {id: 2, title: 'Install BBQ', createdAt: new Date(), completed: false},
-    {id: 3, title: 'Watch NBA final', createdAt: new Date(), completed: false},
-    {id: 4, title: 'Buy supprise egg', createdAt: new Date(), completed: false},
-    {id: 5, title: 'Watch Iron Man 2', createdAt: new Date(), completed: false},
-  ],
-  theme: 'slateGray'
+    { id: 1, title: 'Clean up garage' },
+    { id: 2, title: 'Install BBQ' },
+    { id: 3, title: 'Watch NBA final' },
+    { id: 4, title: 'Buy supprise egg' },
+    { id: 5, title: 'Watch Iron Man 2' },
+  ]
 }
 
 let store = createStore(
