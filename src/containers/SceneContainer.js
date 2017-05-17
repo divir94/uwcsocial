@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 import { themeable } from '../themes';
-import TodoList from './TodoListScene';
+import EventList from './EventListScene';
 
 class Navigation extends Component {
 
   renderScene(route, navigator) {
     let RouteComponent = route.component;
-    return <route.component navigator={navigator} {...route.passProps}/>
+    return <RouteComponent navigator={navigator} {...route.passProps}/>
   }
 
   render() {
-    const {mainBgImgStyle, mainBgImgSrc} = this.props;
-
     return (
       <Navigator
-        initialRoute={{name: 'List', component: TodoList}}
+        initialRoute={{name: 'List', component: EventList}}
         renderScene={this.renderScene}
       />
     );

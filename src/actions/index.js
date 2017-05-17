@@ -1,38 +1,24 @@
-let nextTodoId = 0;
+let nextEventId = 0;
 
 
-export const addTodo = (title) => {
+export const addEvent = (title) => {
   return {
-    type: 'ADD_TODO',
-    id: nextTodoId++,
+    type: 'ADD_EVENT',
+    id: nextEventId++,
     title
   };
 };
 
-export const setVisibilityFilter = (filter) => {
+export const editEvent = (event) => {
   return {
-    type: 'SET_VISIBILITY_FILTER',
-    filter
+    type: 'EDIT_EVENT',
+    event
   };
 };
 
-export const toggleTodo = (id) => {
+export const deleteEvent = (id) => {
   return {
-    type: 'TOGGLE_TODO',
-    id
-  };
-};
-
-export const editTodo = (todo) => {
-  return {
-    type: 'EDIT_TODO',
-    todo
-  };
-};
-
-export const deleteTodo = (id) => {
-  return {
-    type: 'DELETE_TODO',
+    type: 'DELETE_EVENT',
     id
   };
 };

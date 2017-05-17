@@ -1,31 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView } from 'react-native';
-import Todo from './Todo';
+import Event from './Event';
 
-const ds = new ListView.DataSource({
+let ds = new ListView.DataSource({
   rowHasChanged: (row1, row2) => row1.id !== row2.id,
 });
 
-class Todos extends Component {
+class EventList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: ds.cloneWithRows(props.todos)
+      dataSource: ds.cloneWithRows(props.events)
     };
   }
 
-  renderRow(todo) {
-    return <Todo todo={todo} onCheckPress={this.props.onCheckPress} navigator={this.props.navigator}/>;
+  renderRow(event) {
+    return <Event event={event} navigator={this.props.navigator}/>;
   }
 
-  updateDataSource(todos) {
+  updateDataSource(events) {
     this.setState({
-      dataSource: ds.cloneWithRows(todos)
+      dataSource: ds.cloneWithRows(events)
     });
   }
 
   componentWillReceiveProps(newProps) {
-    this.updateDataSource(newProps.todos);
+    this.updateDataSource(newProps.events);
   }
 
   render() {
@@ -34,12 +34,10 @@ class Todos extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
-          enableEmptySections={true}
-          automaticallyAdjustContentInsets={false}
         />
       </View>
     );
   }
 }
 
-export default Todos;
+export default EventList;
