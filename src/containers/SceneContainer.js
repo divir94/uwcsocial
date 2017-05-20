@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
-import EventList from './EventListScene';
+import EventListScene from './EventListScene';
+import EventPostScene from './EventPostScene';
 
 
 class Navigation extends Component {
@@ -13,7 +14,7 @@ class Navigation extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Events', component: EventList }}
+        initialRoute={{ name: 'Events', component: EventListScene }}
         renderScene={this.renderScene}
       />
     );

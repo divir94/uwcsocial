@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View, ListView } from 'react-native';
+import { connect } from 'react-redux';
 
 import Event from './Event';
 
@@ -38,4 +39,15 @@ class EventList extends Component {
   }
 }
 
-export default EventList;
+let mapStateToProps = (state) => {
+  return {
+    events: state.events,
+  };
+};
+
+let EventListContainer = connect(
+  mapStateToProps,
+  () => ({})
+)(EventList);
+
+export default EventListContainer;

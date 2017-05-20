@@ -7,13 +7,26 @@ import SceneContainer from './containers/SceneContainer';
 
 
 let initialState = {
-  events: [
-    { id: 1, title: 'Clean up garage' },
-    { id: 2, title: 'Install BBQ' },
-    { id: 3, title: 'Watch NBA final' },
-    { id: 4, title: 'Buy supprise egg' },
-    { id: 5, title: 'Watch Iron Man 2' },
-  ]
+  events:   [{
+    'id': -1,
+    'name': 'MOMA Day',
+    'date': '04/12/2017',
+    'time': '4pm',
+    'location': '11 W 53rd St, New York, NY 10019',
+    'going': ['Divir Gupta', 'Lena Lola'],
+    'image': require('../src/img/fjords.jpg'),
+    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.'
+  },
+  {
+    'id': -2,
+    'name': 'NYU Reunion',
+    'date': '04/12/2017',
+    'time': '4pm',
+    'location': '11 W 53rd St, New York, NY 10019',
+    'going': ['Nick McQuinn'],
+    'image': require('../src/img/fjords.jpg'),
+    'description': 'labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex.'
+  }]
 }
 
 let store = createStore(
@@ -29,5 +42,7 @@ let UWCApp = () => {
     </Provider>
   );
 }
+
+console.ignoredYellowBox = ['Remote debugger'];
 
 export default UWCApp;

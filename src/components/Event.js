@@ -1,32 +1,44 @@
-import React, { Component, PropTypes } from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { Card, CardItem } from 'native-base';
 
-//import EditTodo from '../containers/EditTodoScene';
+import EventDetailScene from '../containers/EventDetailScene';
 
 
 class Event extends Component {
   viewEvent() {
-    // this.props.navigator.push({
-    //   component: EditTodo,
-    //   passProps: {
-    //     title: 'Edit task',
-    //     todo: this.props.event
-    //   }
-    // });
+    this.props.navigator.push({
+      component: EventDetailScene,
+      passProps: {
+        title: 'Event Detail',
+        event: this.props.event
+      }
+    });
   }
 
   render() {
-    let event = this.props.event;
+    let { name, image, going, date, location} = this.props.event;
     return (
-      <View>
-        <TouchableHighlight onPress={this.viewEvent.bind(this)}>
-          <View>
-            <Text>{event.title}</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+      <Card>
+        <CardItem button onPress={this.viewEvent.bind(this)}>
+          <Image style={styles.image} source={image}>
+            <Text>{name}</Text>
+            <Text>{going}</Text>
+          </Image>
+          <Text>{date}{'\n'}{location}</Text>
+        </CardItem>
+      </Card>
     );
   }
 }
+
+let styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+});
 
 export default Event;
