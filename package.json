@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
+    "react-native-image-picker": "^0.26.3",
     "react-native-navbar": "^1.7.1",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0"

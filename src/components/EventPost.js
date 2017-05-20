@@ -2,23 +2,34 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from 'native-base';
 //import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
 
 
 class EventPost extends Component {
-  // openImagePicker() {
-  //   ImagePicker.openPicker({
-  //     width: 300,
-  //     height: 400,
-  //     cropping: true
-  //   }).then(image => {
-  //     console.log(image);
-  //   });
-  // }
+  uploadImage() {
+    ImagePicker.showImagePicker(null, (response) => {
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        console.log(source);
+      }
+    });
+  }
 
   render() {
     return (
     <View>
-      <Button block info>
+      <Button block info onPress={this.uploadImage}>
         <Text>Upload event picture</Text>
       </Button>
     </View>
