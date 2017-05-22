@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from 'native-base';
-//import ImagePicker from 'react-native-image-crop-picker';
 import ImagePicker from 'react-native-image-picker';
+import RNGooglePlacePicker from 'react-native-google-place-picker';
 
 
 class EventPost extends Component {
@@ -20,16 +20,29 @@ class EventPost extends Component {
       }
       else {
         let source = { uri: response.uri };
-
         console.log(source);
       }
     });
   }
 
+  openMap() {
+    RNGooglePlacePicker.show((response) => {
+      if (response.didCancel) {
+        console.log('User cancelled GooglePlacePicker');
+      }
+      else if (response.error) {
+        console.log('GooglePlacePicker Error: ', response.error);
+      }
+      else {
+        console.log(response);
+      }
+    })
+  }
+
   render() {
     return (
     <View>
-      <Button block info onPress={this.uploadImage}>
+      <Button block info onPress={this.openMap}>
         <Text>Upload event picture</Text>
       </Button>
     </View>
