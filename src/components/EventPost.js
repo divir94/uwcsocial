@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
-import RNGooglePlacePicker from 'react-native-google-place-picker';
+import RNGooglePlaces from 'react-native-google-places';
 
 
 class EventPost extends Component {
@@ -25,25 +25,24 @@ class EventPost extends Component {
     });
   }
 
-  openMap() {
-    RNGooglePlacePicker.show((response) => {
-      if (response.didCancel) {
-        console.log('User cancelled GooglePlacePicker');
-      }
-      else if (response.error) {
-        console.log('GooglePlacePicker Error: ', response.error);
-      }
-      else {
-        console.log(response);
-      }
+  openSearchModal() {
+    RNGooglePlaces.openAutocompleteModal()
+    .then((place) => {
+		console.log(place);
+		// place represents user's selection from the
+		// suggestions and it is a simplified Google Place object.
     })
+    .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
   render() {
     return (
     <View>
-      <Button block info onPress={this.openMap}>
+      <Button block info onPress={this.uploadImage}>
         <Text>Upload event picture</Text>
+      </Button>
+      <Button block info onPress={this.openSearchModal}>
+        <Text>Pick a Place</Text>
       </Button>
     </View>
     );
