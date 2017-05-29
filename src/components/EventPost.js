@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
 
+import NavigationBar from 'react-native-navbar';
 import RNGooglePlaces from 'react-native-google-places';
 import t from 'tcomb-form-native';
 
@@ -82,7 +83,7 @@ class EventPost extends Component {
       })
       console.log(newValue)
       this.props.onSumbitEvent(newValue);
-      this.props.navigator.pop();
+      this.goBack();
     } 
     else {
       let validate = this.refs.form.validate();
@@ -90,9 +91,17 @@ class EventPost extends Component {
     }
   }
 
+  goBack() {
+    this.props.navigator.pop()
+  }
+
   render() {
     return (
     <View>
+      <NavigationBar
+          title={{ title: 'Post an event' }}
+          leftButton={{ title: 'Cancel', handler: this.goBack.bind(this) }}
+        />
       <ImagePicker onLoad={this.setImageUri.bind(this)}/>
       <Form
           ref='form'

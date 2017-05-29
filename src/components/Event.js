@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Card, CardItem } from 'native-base';
 
-import EventDetailScene from '../containers/EventDetailScene';
+import EventDetail from './EventDetail';
 
 
 class Event extends Component {
   viewEvent() {
     this.props.navigator.push({
-      component: EventDetailScene,
+      component: EventDetail,
       passProps: {
         title: 'Event Detail',
-        event: this.props.event
+        event: this.props.event,
+        navigator: this.props.navigator
       }
     });
   }
