@@ -5,28 +5,26 @@ import _ImagePicker from 'react-native-image-picker';
 
 
 class ImagePicker extends Component {
+
   uploadImage() {
     _ImagePicker.showImagePicker(null, (response) => {
-      console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
       else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
       else {
+        console.log(response);
         let source = { uri: response.uri };
-        console.log(source);
+        this.props.onLoad(source);
       }
     });
   }
 
   render() {
     return (
-      <Button block info onPress={this.uploadImage}>
+      <Button block info onPress={this.uploadImage.bind(this)}>
         <Text>Upload a picture</Text>
       </Button>
     );

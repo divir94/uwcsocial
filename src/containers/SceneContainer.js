@@ -14,7 +14,7 @@ class Navigation extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ name: 'Events', component: EventPostScene }}
+        initialRoute={{ name: 'Events', component: EventListScene }}
         renderScene={this.renderScene}
       />
     );

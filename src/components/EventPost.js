@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'native-base';
+import { connect } from 'react-redux';
 
 import RNGooglePlaces from 'react-native-google-places';
 import t from 'tcomb-form-native';
 
 import ImagePicker from './shared/ImagePicker';
+import { addEvent } from '../actions';
 
 
 let Form = t.form.Form;
@@ -38,50 +40,65 @@ class EventPost extends Component {
   constructor(props) {
     super(props);
 
-    this.Event = t.struct({
-      name: t.String,
-      description: t.maybe(t.String),
-      location: t.String,
-      date: t.Date
-    });
-
-    this.options = {
-      fields: {
-        description: {
-          multiline: true,
-          numberOfLines: 5,
-        },
-        location: {
-          template: locationTemplate,
-          value: 'location'
-        },
+    this.state = {
+      image: null,
+      formEventTypes: t.struct({
+        name: t.String,
+        description: t.maybe(t.String),
+        location: t.maybe(t.String),
+        date: t.Date
+      }),
+      formEventOptions: {
+        fields: {
+          name: {
+            autoCorrect: false,
+          },
+          description: {
+            multiline: true,
+            numberOfLines: 5,
+          },
+          location: {
+            template: locationTemplate
+          },
+        }
       }
     };
   }
 
-  openSearchModal() {
-    RNGooglePlaces.openAutocompleteModal()
-      .then((place) => {
-  		    console.log(place);
-      })
-      .catch(error => console.log(error.message));
+  setImageUri(uri) {
+    this.setState({
+      image: uri
+    })
   }
 
   onPress() {
     let value = this.refs.form.getValue();
-    let validate = this.refs.form.validate();
-    console.log(value);
-    console.log(validate);
+
+    if (value) {
+      let newValue = Object.assign({}, value, {
+        date: value.date.toDateString(),
+        time: value.date.toTimeString(),
+        image: this.state.image
+      })
+      console.log(newValue)
+      this.props.onSumbitEvent(newValue);
+      this.props.navigator.pop();
+    } 
+    else {
+      let validate = this.refs.form.validate();
+      console.log(validate);
+    }
   }
 
   render() {
     return (
     <View>
-      <ImagePicker/>
+      <ImagePicker onLoad={this.setImageUri.bind(this)}/>
       <Form
           ref='form'
-          type={this.Event}
-          options={this.options}
+          type={this.state.formEventTypes}
+          options={this.state.formEventOptions}
+          value={{ name: 'test' }}
         />
       <Button onPress={this.onPress.bind(this)}>
         <Text>Save</Text>
@@ -91,4 +108,19 @@ class EventPost extends Component {
   }
 }
 
-export default EventPost;
+let mapStateToProps = () => ({});
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    onSumbitEvent: (event) => {
+      dispatch(addEvent(event))
+    }
+  }
+};
+
+let EventPostContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventPost);
+
+export default EventPostContainer;

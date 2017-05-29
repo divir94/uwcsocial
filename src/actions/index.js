@@ -1,11 +1,11 @@
 let nextEventId = 0;
 
 
-export const addEvent = (title) => {
+export const addEvent = (event) => {
   return {
     type: 'ADD_EVENT',
     id: nextEventId++,
-    title
+    event
   };
 };
 

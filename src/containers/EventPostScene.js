@@ -19,7 +19,7 @@ class EventPostScene extends Component {
           leftButton={{ title: 'Cancel', handler: this.goBack.bind(this) }}
         />
         <ScrollView>
-          <EventPost />
+          <EventPost navigator={this.props.navigator}/>
         </ScrollView>
       </View>
     );

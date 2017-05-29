@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, ListView } from 'react-native';
+import { View, ListView, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import Event from './Event';
@@ -21,9 +21,9 @@ class EventList extends Component {
     return <Event event={event} navigator={this.props.navigator}/>;
   }
 
-  componentWillReceiveProps(newEvents) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      dataSource: ds.cloneWithRows(newEvents)
+      dataSource: ds.cloneWithRows(nextProps.events)
     });
   }
 

@@ -1,11 +1,11 @@
 let event = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_EVENT':
       return {
         id: action.id,
-        title: action.title
-      };
-    case 'EDIT_TODO':
+        ...action.event
+      }
+    case 'EDIT_EVENT':
       if (state.id !== action.event.id) {
         return state;
       }
@@ -17,20 +17,17 @@ let event = (state, action) => {
 
 let events = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
+    case 'ADD_EVENT':
+      let newEvent = [
         ...state,
         event(undefined, action)
       ];
-    case 'TOGGLE_TODO':
+      return newEvent;
+    case 'EDIT_EVENT':
       return state.map(t =>
         event(t, action)
       );
-    case 'EDIT_TODO':
-      return state.map(t =>
-        event(t, action)
-      );
-    case 'DELETE_TODO':
+    case 'DELETE_EVENT':
       return state.filter(t => t.id !== action.id);
     default:
       return state;
