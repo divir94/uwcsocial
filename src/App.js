@@ -30,9 +30,8 @@ let initialState = {
 }
 
 let store = createStore(
-  allReducers, 
-  initialState, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  allReducers,
+  initialState
 );
 
 let UWCApp = () => {

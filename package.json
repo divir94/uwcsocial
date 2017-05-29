@@ -15,7 +15,8 @@
     "react-native-image-picker": "^0.26.3",
     "react-native-navbar": "^1.7.1",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "tcomb-form-native": "^0.6.8"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
