@@ -13,6 +13,28 @@ import { addEvent } from '../actions';
 
 let Form = t.form.Form;
 
+let event = t.struct({
+  name: t.String,
+  description: t.maybe(t.String),
+  location: t.maybe(t.String),
+  date: t.Date
+})
+
+let options = {
+  fields: {
+    name: {
+      autoCorrect: false,
+    },
+    description: {
+      multiline: true,
+      numberOfLines: 5,
+    },
+    location: {
+      template: locationTemplate
+    },
+  }
+}
+
 function locationTemplate(locals) {
   let getAddress = function() {
     RNGooglePlaces.openAutocompleteModal()
@@ -41,29 +63,7 @@ class EventPost extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      image: null,
-      formEventTypes: t.struct({
-        name: t.String,
-        description: t.maybe(t.String),
-        location: t.maybe(t.String),
-        date: t.Date
-      }),
-      formEventOptions: {
-        fields: {
-          name: {
-            autoCorrect: false,
-          },
-          description: {
-            multiline: true,
-            numberOfLines: 5,
-          },
-          location: {
-            template: locationTemplate
-          },
-        }
-      }
-    };
+    this.state = { image: null };
   }
 
   setImageUri(uri) {
@@ -82,7 +82,7 @@ class EventPost extends Component {
         image: this.state.image
       })
       console.log(newValue)
-      this.props.onSumbitEvent(newValue);
+      this.props.addEvent(newValue);
       this.goBack();
     } 
     else {
@@ -105,8 +105,8 @@ class EventPost extends Component {
       <ImagePicker onLoad={this.setImageUri.bind(this)}/>
       <Form
           ref='form'
-          type={this.state.formEventTypes}
-          options={this.state.formEventOptions}
+          type={event}
+          options={options}
           value={{ name: 'test' }}
         />
       <Button onPress={this.onPress.bind(this)}>
@@ -121,7 +121,7 @@ let mapStateToProps = () => ({});
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    onSumbitEvent: (event) => {
+    addEvent: (event) => {
       dispatch(addEvent(event))
     }
   }

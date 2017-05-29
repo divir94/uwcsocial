@@ -5,6 +5,7 @@ import { Tabs, Tab, Header, Container } from 'native-base';
 import NavigationBar from 'react-native-navbar';
 
 import Profile from '../components/Profile';
+import ProfileEdit from '../components/ProfileEdit';
 import EventList from '../components/EventList';
 import EventPost from '../components/EventPost';
 
@@ -20,9 +21,12 @@ class EventListScene extends Component {
   }
 
   editProflie() {
-    // this.props.navigator.push({
-    //   component: EventPostScene
-    // });
+    this.props.navigator.push({
+      component: ProfileEdit,
+      passProps: {
+        navigator: this.props.navigator
+      }
+    });
   }
 
   render() {
