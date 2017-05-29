@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'native-base';
-import ImagePicker from 'react-native-image-picker';
+import _ImagePicker from 'react-native-image-picker';
 
 
-class MyImagePicker extends Component {
+class ImagePicker extends Component {
   uploadImage() {
-    ImagePicker.showImagePicker(null, (response) => {
+    _ImagePicker.showImagePicker(null, (response) => {
       console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -33,4 +33,4 @@ class MyImagePicker extends Component {
   }
 }
 
-export default MyImagePicker;
+export default ImagePicker;

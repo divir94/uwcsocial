@@ -1,47 +1,63 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'native-base';
+
 import RNGooglePlaces from 'react-native-google-places';
-var t = require('tcomb-form-native');
+import t from 'tcomb-form-native';
 
-import MyImagePicker from './shared/ImagePicker';
+import ImagePicker from './shared/ImagePicker';
 
 
-var Form = t.form.Form;
+let Form = t.form.Form;
 
-var Person = t.struct({
-  name: t.String,
-  description: t.maybe(t.String),
-  location: t.String,
-  date: t.Date
-});
+function locationTemplate(locals) {
+  let getAddress = function() {
+    RNGooglePlaces.openAutocompleteModal()
+      .then((place) => {
+        console.log(place);
+        locals.onChange(place.address)
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }
 
-let getLocation = function() {
-  console.log('hey');
-};
-
-function myCustomTemplate(locals) {
   return (
     <View>
       <Text>{locals.label}</Text>
-      <TextInput onChangeText={getLocation}/>
+      <TextInput 
+        style={{ height: 20 }}
+        onFocus={getAddress}
+        value={locals.value}
+      />
     </View>
   );
 }
 
-var options = {
-  fields: {
-    // name: {
-    //   template: myCustomTemplate
-    // },
-    description: {
-      multiline: true,
-      numberOfLines: 5
-    }
-  }
-};
-
 class EventPost extends Component {
+  constructor(props) {
+    super(props);
+
+    this.Event = t.struct({
+      name: t.String,
+      description: t.maybe(t.String),
+      location: t.String,
+      date: t.Date
+    });
+
+    this.options = {
+      fields: {
+        description: {
+          multiline: true,
+          numberOfLines: 5,
+        },
+        location: {
+          template: locationTemplate,
+          value: 'location'
+        },
+      }
+    };
+  }
 
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
@@ -52,18 +68,20 @@ class EventPost extends Component {
   }
 
   onPress() {
-    var value = this.refs.form.getValue();
+    let value = this.refs.form.getValue();
+    let validate = this.refs.form.validate();
     console.log(value);
+    console.log(validate);
   }
 
   render() {
     return (
     <View>
-      <MyImagePicker/>
+      <ImagePicker/>
       <Form
-          ref="form"
-          type={Person}
-          options={options}
+          ref='form'
+          type={this.Event}
+          options={this.options}
         />
       <Button onPress={this.onPress.bind(this)}>
         <Text>Save</Text>
