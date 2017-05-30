@@ -32,7 +32,7 @@ let initialState = {
     name: 'Divir',
     age: 22,
     location: 'Stamford, CT',
-    description: null,
+    description: 'Hello this is Divir',
     relationship: 'single',
     height: null,
 

@@ -4,40 +4,21 @@ import { Button } from 'native-base';
 import { connect } from 'react-redux';
 
 import NavigationBar from 'react-native-navbar';
-import t from 'tcomb-form-native';
 
+import ProfileDetailEdit from './ProfileDetailEdit';
+import ProfilePhotosEdit from './ProfilePhotosEdit';
+import SegmentedTab from './shared/SegmentedTab';
 import { editUser } from '../actions';
 
 
-let Form = t.form.Form;
-
-let User = t.struct({
-  name: t.String,
-  age: t.Number,
-  location: t.String,
-  description: t.String,
-  height: t.maybe(t.String),
-  relationship: t.maybe(t.enums({
-    'single': 'Single',
-    'married': 'Married',
-    'relashionship': 'In a relashionship',
-    'complicated': 'It\'s Complicated'
-  })),
-});
-
-let options = {
-  fields: {
-    name: {
-      autoCorrect: false,
-    }
-  }
-};
-
 class ProfileEdit extends Component {
+
   constructor(props) {
     super(props);
+    this.state = {
+      selectedIndex: 0
+    }
   }
-
 
   onPress() {
     let value = this.refs.form.getValue();
@@ -57,44 +38,23 @@ class ProfileEdit extends Component {
     this.props.navigator.pop()
   }
 
+  handleIndexChange(index) {
+    this.setState({
+      selectedIndex: index
+    })
+  }
+
   render() {
     return (
     <View>
       <NavigationBar
-          title={{ title: 'Edit Profile' }}
-          leftButton={{ title: 'Cancel', handler: this.goBack.bind(this) }}
-        />
-      <Form
-        ref='form'
-        type={User}
-        options={options}
-        value={this.props.user}
+          title={ <SegmentedTab onChange={this.handleIndexChange.bind(this)}/> }
+          rightButton={{ title: 'Done', handler: this.onPress.bind(this) }}
       />
-      <Button block onPress={this.onPress.bind(this)}>
-        <Text>Save</Text>
-      </Button>
+      { this.state.selectedIndex == 0 ? <ProfileDetailEdit/> : <ProfilePhotosEdit/>}
     </View>
     );
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-    editUser: (event) => {
-      dispatch(editUser(event))
-    }
-  }
-};
-
-let ProfileEditContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileEdit);
-
-export default ProfileEditContainer;
+export default ProfileEdit;

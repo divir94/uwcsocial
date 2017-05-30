@@ -37,7 +37,7 @@ class EventListScene extends Component {
         <Tabs tabBarPosition='bottom' initialPage={0}>
 
           <Tab heading='Profile'>
-            <NavigationBar
+              <NavigationBar
                 title={{ title: 'Profile' }}
                 rightButton={{ title: 'Edit', handler: this.editProflie.bind(this) }}
               />
