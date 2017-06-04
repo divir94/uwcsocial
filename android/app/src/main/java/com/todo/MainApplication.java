@@ -3,6 +3,8 @@ package com.todo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.reactlibrary.RNGooglePlacePickerPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FBSDKPackage(),
+            new FBSDKPackage(),
             new RNGooglePlacesPackage(),
             new RNGooglePlacePickerPackage(),
             new ImagePickerPackage(),

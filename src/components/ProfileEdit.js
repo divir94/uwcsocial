@@ -21,17 +21,18 @@ class ProfileEdit extends Component {
   }
 
   onPress() {
-    let value = this.refs.form.getValue();
+    // let value = this.refs.form.getValue();
 
-    if (value) {
-      console.log(value);
-      this.props.editUser(value);
-      this.goBack();
-    } 
-    else {
-      let validate = this.refs.form.validate();
-      console.log(validate);
-    }
+    // if (value) {
+    //   console.log(value);
+    //   this.props.editUser(value);
+    //   this.goBack();
+    // } 
+    // else {
+    //   let validate = this.refs.form.validate();
+    //   console.log(validate);
+    // }
+    this.goBack();
   }
 
   goBack() {
