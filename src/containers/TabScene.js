@@ -8,6 +8,7 @@ import Profile from '../components/Profile';
 import ProfileEdit from '../components/ProfileEdit';
 import EventList from '../components/EventList';
 import EventPost from '../components/EventPost';
+import FBLogin from '../components/shared/FBLogin';
 
 
 class EventListScene extends Component {
@@ -42,6 +43,7 @@ class EventListScene extends Component {
                 rightButton={{ title: 'Edit', handler: this.editProflie.bind(this) }}
               />
               <ScrollView>
+                <FBLogin/>
                 <Profile navigator={navigator}/>
               </ScrollView>
           </Tab>
